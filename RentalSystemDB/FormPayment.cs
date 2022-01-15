@@ -227,8 +227,8 @@ namespace RentalSystemDB
                 // Determine whether the keystroke is a number from the keypad.
                 if (e.KeyCode < Keys.NumPad0 || e.KeyCode > Keys.NumPad9)
                 {
-                    // Determine whether the keystroke is a backspace.
-                    if (e.KeyCode != Keys.Back && e.KeyCode != Keys.OemPeriod && e.KeyCode != Keys.Oemcomma)
+                    // Determine whether the keystroke is a backspace or a period.
+                    if (e.KeyCode != Keys.Back && e.KeyCode != Keys.OemPeriod)
                     {
                         // A non-numerical keystroke was pressed.
                         // Set the flag to true and evaluate in KeyPress event.

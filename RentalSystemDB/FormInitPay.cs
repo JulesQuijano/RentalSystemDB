@@ -19,6 +19,8 @@ namespace RentalSystemDB
         readonly static string stdConnection = ConfigurationManager.ConnectionStrings["myConnection"].ConnectionString;
         MySqlConnection con = new MySqlConnection(stdConnection);
 
+        const int INIT_PAY_TYPE_ID = 5;
+
         /// <summary>
         /// Properties
         /// </summary>
@@ -57,7 +59,7 @@ namespace RentalSystemDB
 
             cmdSave.Parameters.AddWithValue("_PaymentId", -1);
             cmdSave.Parameters.AddWithValue("_ContractId", m_contractId);
-            cmdSave.Parameters.AddWithValue("_PaymentTypeId", 5);
+            cmdSave.Parameters.AddWithValue("_PaymentTypeId", INIT_PAY_TYPE_ID);
             cmdSave.Parameters.AddWithValue("_PaymentDate", dtp_initPayment.Text);
             cmdSave.Parameters.AddWithValue("_ReceiptNo", txt_receiptNo.Text);
             cmdSave.Parameters.AddWithValue("_PaymentAmount", txt_amount.Text);

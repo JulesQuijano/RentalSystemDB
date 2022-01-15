@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `rental_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `rental_db`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: rental_db
@@ -87,8 +85,8 @@ CREATE TABLE `payments` (
   `ContractId` int DEFAULT NULL,
   `PaymentTypeId` int DEFAULT NULL,
   `PaymentDate` date DEFAULT NULL,
-  `ReceiptNo` varchar(50) DEFAULT NULL,
-  `PaymentAmount` varchar(100) DEFAULT NULL,
+  `ReceiptNo` varchar(20) DEFAULT NULL,
+  `PaymentAmount` decimal(12,2) DEFAULT NULL,
   `PaymentStatus` varchar(20) DEFAULT NULL,
   `Comment` longtext,
   PRIMARY KEY (`PaymentId`),
@@ -106,7 +104,7 @@ CREATE TABLE `payments` (
 
 LOCK TABLES `payments` WRITE;
 /*!40000 ALTER TABLE `payments` DISABLE KEYS */;
-INSERT INTO `payments` VALUES (1,1,1,'2020-11-23','0123','1000','Unpaid','yes'),(2,1,5,'2020-11-23','0124','500','Paid','maybe'),(3,2,3,'2021-06-18','0125','400','Paid','so'),(4,2,1,'2021-06-18','0126','300','Paid','no'),(6,3,1,'2022-01-08','1','1','Paid','1'),(7,3,2,'2022-01-01','4','23','Unpaid','23'),(8,4,3,'2022-01-08','12344','3213','Paid','ergterwgewge'),(10,7,5,'2022-01-09','System.Windows.Forms.TextBox, Text: 0987','1234','Paid',''),(11,8,5,'2022-01-09','System.Windows.Forms.TextBox, Text: ','','Paid',''),(12,9,5,'2022-01-09','','','Paid',''),(13,10,5,'2022-01-09','254643423','23442','Paid',''),(14,11,5,'2022-01-09','','','Paid',''),(15,12,5,'2022-01-11','643523','1445','Paid',''),(16,14,5,'2022-01-11','','','Paid',''),(17,15,5,'2022-01-14','1234678','64675','Paid',''),(18,16,5,'2022-01-13','3456','6546','Paid','');
+INSERT INTO `payments` VALUES (1,1,1,'2020-11-23','09823',2000.50,'Unpaid','yes'),(2,1,5,'2020-11-23','0124',500.00,'Paid','maybe'),(3,2,3,'2021-06-18','0125',400.00,'Paid','so'),(4,2,1,'2021-06-18','0126',300.00,'Paid','no'),(6,3,1,'2022-01-08','1',1.00,'Paid','1'),(7,3,2,'2022-01-01','4',23.00,'Unpaid','23'),(8,4,3,'2022-01-08','12344',3213.00,'Paid','ergterwgewge'),(10,7,5,'2022-01-09','0987',1234.00,'Paid',''),(11,8,5,'2022-01-09','8486',0.00,'Paid',''),(12,9,5,'2022-01-09','',0.00,'Paid',''),(13,10,5,'2022-01-09','25464',23442.00,'Paid',''),(14,11,5,'2022-01-09','',0.00,'Paid',''),(15,12,5,'2022-01-11','643523',1445.00,'Paid',''),(16,14,5,'2022-01-11','',0.00,'Paid',''),(17,15,5,'2022-01-14','1234678',64675.00,'Paid',''),(18,16,5,'2022-01-13','3456',6546.00,'Paid','');
 /*!40000 ALTER TABLE `payments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,8 +124,8 @@ CREATE TABLE `tenants` (
   `EmailAddress` varchar(45) DEFAULT NULL,
   `PermaAddress` varchar(100) DEFAULT NULL,
   `Company` varchar(75) DEFAULT NULL,
-  `AnnualIncome` varchar(100) DEFAULT NULL,
-  `HouseholdNum` varchar(10) DEFAULT NULL,
+  `AnnualIncome` decimal(12,2) DEFAULT NULL,
+  `HouseholdNum` int DEFAULT NULL,
   PRIMARY KEY (`TenantId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -138,7 +136,7 @@ CREATE TABLE `tenants` (
 
 LOCK TABLES `tenants` WRITE;
 /*!40000 ALTER TABLE `tenants` DISABLE KEYS */;
-INSERT INTO `tenants` VALUES (1,'Madeline','Bertha','syk','4619-124-6666','msykes@gmail.com','Suspendisse ac metus','Eu Tellus Corpporation','11000','3'),(2,'Drake','Morgan','Bruce','7122-301-6076','d_bruce6027@google.com','magnis dis parturient montes,','Nulla Ante Iaculis Industries','28,760','3'),(3,'Len','Yolanda','Sharpe','1444-889-8405','s.len@google.com','ipsum sodales purus, in','Proin Foundation','18,955','3'),(4,'Jerome','Rama','Brock','8129-382-3013','b_jerome@google.com','In faucibus. Morbi vehicula.','Imperdiet Ullamcorper Duis Corp.','25,998','2'),(5,'TEA','Moana','Nunez','3458-021-7320','t_nunez3933@google.com','parturient montes, nascetur ridiculus','Ante Dictum Mi Corporation','19,075','4'),(6,'asdf','asdfsf','asdfq','1235467','dgbsssssssdf','dfdsvb','sdfgdsv','166164','3'),(7,'rhgjjs','fdgjkjtr','hgsfjs','2356','gdfshjjhy','gfhdhsdm','lk;hfjghj','23567','4');
+INSERT INTO `tenants` VALUES (1,'Madeline','Bertha','syk','4619-124-6666','msykes@gmail.com','Suspendisse ac metus','Eu Tellus Corpporation',11000.00,3),(2,'Drake','Morgan','Bruce','7122-301-6076','d_bruce6027@google.com','magnis dis parturient montes,','Nulla Ante Iaculis Industries',1500.50,5),(3,'Len','Yolanda','Sharpe','1444-889-8405','s.len@google.com','ipsum sodales purus, in','Proin Foundation',18955.00,3),(4,'Jerome','Rama','Brock','8129-382-3013','b_jerome@google.com','In faucibus. Morbi vehicula.','Imperdiet Ullamcorper Duis Corp.',25998.00,2),(5,'TEA','Moana','Nunez','3458-021-7320','t_nunez3933@google.com','parturient montes, nascetur ridiculus','Ante Dictum Mi Corporation',19075.00,4),(6,'asdf','asdfsf','asdfq','1235467','dgbsssssssdf','dfdsvb','sdfgdsv',166164.00,3),(7,'rhgjjs','fdgjkjtr','hgsfjs','2356','gdfshjjhy','gfhdhsdm','lk;hfjghj',23567.00,4);
 /*!40000 ALTER TABLE `tenants` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,9 +150,9 @@ DROP TABLE IF EXISTS `units`;
 CREATE TABLE `units` (
   `UnitId` int NOT NULL AUTO_INCREMENT,
   `UnitType` varchar(30) DEFAULT NULL,
-  `UnitArea` varchar(50) DEFAULT NULL,
-  `RentalAmount` varchar(100) DEFAULT NULL,
-  `TenantLimit` varchar(10) DEFAULT NULL,
+  `UnitArea` decimal(12,2) DEFAULT NULL,
+  `RentalAmount` decimal(12,2) DEFAULT NULL,
+  `TenantLimit` int DEFAULT NULL,
   `UnitStatus` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`UnitId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -166,7 +164,7 @@ CREATE TABLE `units` (
 
 LOCK TABLES `units` WRITE;
 /*!40000 ALTER TABLE `units` DISABLE KEYS */;
-INSERT INTO `units` VALUES (1,'Single Detached','17','14,822','3','occupied'),(2,'Duplex','16','13,199','2','occupied'),(3,'Duplex','15','11,358','2','occupied'),(4,'Bungalow','18','11,234','1','occupied'),(5,'Condo','16','11,450','2','vacant'),(6,'Town House','17','12,175','2','vacant'),(7,'Bungalow','19','12,089','2','vacant'),(8,'Single Detached','18','10,989','2','vacant'),(9,'Town House','15','14,418','2','vacant'),(10,'Condo','20','10,132','3','vacant'),(16,'Bungalow','1','1','1','vacant');
+INSERT INTO `units` VALUES (1,'Single Detached',17.00,14822.00,3,'occupied'),(2,'Duplex',16.00,13199.00,2,'occupied'),(3,'Duplex',15.00,11358.00,2,'occupied'),(4,'Bungalow',18.00,11234.00,1,'occupied'),(5,'Condo',16.00,11450.00,2,'vacant'),(6,'Town House',17.00,12175.00,2,'vacant'),(7,'Bungalow',19.00,12089.00,2,'vacant'),(8,'Single Detached',18.00,10989.00,2,'vacant'),(9,'Town House',15.00,14418.00,2,'vacant'),(10,'Condo',20.00,10132.00,3,'vacant'),(16,'Bungalow',12.30,20.50,4,'vacant');
 /*!40000 ALTER TABLE `units` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -404,8 +402,8 @@ _PaymentId INT,
 _ContractId INT,
 _PaymentTypeId INT,
 _PaymentDate DATE,
-_ReceiptNo VARCHAR(50),
-_PaymentAmount VARCHAR(100),
+_ReceiptNo VARCHAR(20),
+_PaymentAmount DECIMAL(12,2),
 _PaymentStatus VARCHAR(20),
 _Comment LONGTEXT
 )
@@ -563,8 +561,8 @@ _MobileNo VARCHAR(45),
 _EmailAddress VARCHAR(45),
 _PermaAddress VARCHAR(100),
 _Company VARCHAR(75),
-_AnnualIncome VARCHAR(100),
-_HouseholdNum VARCHAR(10)
+_AnnualIncome DECIMAL(12, 2),
+_HouseholdNum INT
 )
 BEGIN
 	IF _TenantId = -1 THEN
@@ -785,9 +783,9 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Unit_New_Update`(
 _UnitId INT,
 _UnitType VARCHAR(15),
-_UnitArea VARCHAR(50),
-_RentalAmount VARCHAR(100),
-_TenantLimit VARCHAR(10)
+_UnitArea DECIMAL(12, 2),
+_RentalAmount DECIMAL(12, 2),
+_TenantLimit INT
 )
 BEGIN
 	IF _UnitId = -1 THEN
@@ -843,4 +841,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-13 21:11:41
+-- Dump completed on 2022-01-15 20:23:59

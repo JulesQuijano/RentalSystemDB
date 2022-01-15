@@ -44,6 +44,8 @@ namespace RentalSystemDB
 
             dtp_contractEnd.CustomFormat = "yyy-MM-dd";
             dtp_contractEnd.Format = DateTimePickerFormat.Custom;
+
+            ToggleBtn(dtTenant.Rows.Count > 0 && dtUnit.Rows.Count > 0);
         }
         private void btn_newTenant_Click(object sender, EventArgs e)
         {
@@ -153,6 +155,10 @@ namespace RentalSystemDB
             DateTime end = dtp_contractEnd.Value;
 
             return start.CompareTo(end) < 0;
+        }
+        private void ToggleBtn(Boolean a)
+        {
+            btn_save.Enabled = a;
         }
     }
 }
