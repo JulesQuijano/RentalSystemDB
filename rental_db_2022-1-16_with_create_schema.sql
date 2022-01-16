@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `rental_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `rental_db`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: rental_db
@@ -45,7 +47,7 @@ CREATE TABLE `contracts` (
 
 LOCK TABLES `contracts` WRITE;
 /*!40000 ALTER TABLE `contracts` DISABLE KEYS */;
-INSERT INTO `contracts` VALUES (1,1,1,'2019-01-15','2021-01-14',0,'Consistent Payment!'),(2,2,2,'2018-02-14','2022-02-14',1,'Missing Payment'),(3,3,2,'2022-01-01','2022-01-08',1,'test'),(4,4,4,'2022-01-08','2022-01-15',1,'test2'),(5,1,2,'2022-01-09','2022-01-13',1,''),(6,7,3,'2022-01-09','2022-01-10',1,''),(7,6,2,'2022-01-09','2022-01-09',0,''),(8,5,2,'2022-01-09','2022-01-09',0,''),(9,4,2,'2022-01-09','2022-01-09',0,''),(10,3,2,'2022-01-09','2022-01-09',0,''),(11,7,2,'2022-01-09','2022-01-09',0,''),(12,5,3,'2022-01-11','2022-01-12',0,''),(13,5,3,'2022-01-11','2022-01-12',0,''),(14,1,4,'2022-01-11','2022-01-13',0,''),(15,6,2,'2022-01-13','2022-01-14',0,''),(16,6,3,'2022-01-13','2022-01-14',0,'');
+INSERT INTO `contracts` VALUES (1,1,1,'2019-01-15','2021-01-14',0,'Consistent'),(2,2,2,'2018-02-14','2022-02-14',1,'Missing Payment'),(3,3,2,'2022-01-01','2022-01-08',1,'test'),(4,4,4,'2022-01-08','2022-01-15',1,'test2'),(5,1,2,'2022-01-09','2022-01-13',1,''),(6,7,3,'2022-01-09','2022-01-10',1,''),(7,6,2,'2022-01-09','2022-01-09',0,''),(8,5,2,'2022-01-09','2022-01-09',0,''),(9,4,2,'2022-01-09','2022-01-09',0,''),(10,3,2,'2022-01-09','2022-01-09',0,''),(11,7,2,'2022-01-09','2022-01-09',0,''),(12,5,3,'2022-01-11','2022-01-12',0,''),(13,5,3,'2022-01-11','2022-01-12',0,''),(14,1,4,'2022-01-11','2022-01-13',0,''),(15,6,2,'2022-01-13','2022-01-14',0,''),(16,6,3,'2022-01-13','2022-01-14',0,'');
 /*!40000 ALTER TABLE `contracts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -171,34 +173,6 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'rental_db'
 --
-/*!50003 DROP PROCEDURE IF EXISTS `Contracts_Get_Data` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Contracts_Get_Data`(
-_SearchText VARCHAR(100)
-)
-BEGIN
-	SELECT ContractId AS 'ID', CONCAT(t.FirstName, " ", t.MiddleName, " ", t.LastName) AS 'Full Name', 
-		h.UnitType AS 'Unit Type', c.ContractStart AS 'Contract Start', c.ContractEnd AS 'Contract End', 
-        c.ContractDone AS 'Contract Done', c.Comment
-	FROM contracts AS c INNER JOIN tenants AS t ON c.TenantId = t.TenantId
-		Inner JOIN units AS h ON c.UnitId = h.UnitId
-	WHERE CONCAT(t.FirstName, " ", t.MiddleName, " ", t.LastName) LIKE CONCAT('%',_SearchText,'%')
-		OR h.UnitType LIKE CONCAT('%',_SearchText,'%') OR c.ContractStart LIKE CONCAT('%',_SearchText,'%') 
-        OR c.ContractEnd LIKE CONCAT('%',_SearchText,'%') OR c.Comment LIKE CONCAT('%',_SearchText,'%'); 
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `Contracts_Get_Data_G` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -266,7 +240,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Contract_Get_Data_V`(
-_ContractId VARCHAR(10)
+_ContractId INT
 )
 BEGIN
 	SELECT CONCAT(t.FirstName, " ", t.MiddleName, " ", t.LastName) AS 'Name', 
@@ -372,7 +346,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Payment_Get_Data_G`(
-_ContractId VARCHAR(5)
+_ContractId INT
 )
 BEGIN
 	SELECT p.PaymentId AS 'ID', pt.TypeName AS 'Payment Type', p.PaymentDate AS 'Payment Date', 
@@ -381,6 +355,30 @@ BEGIN
 	FROM payments AS p INNER JOIN contracts AS c ON p.ContractId = c.ContractId 
 		INNER JOIN payment_type AS pt ON p.PaymentTypeId = pt.TypeId 
 	WHERE c.ContractId = _ContractId;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `Payment_Get_Data_V` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Payment_Get_Data_V`(
+_PaymentId INT
+)
+BEGIN
+	SELECT p.PaymentId, pt.TypeName AS Items, p.PaymentDate, p.ReceiptNo, p.PaymentAmount, 
+		p.PaymentStatus, p.Comment 
+	FROM payments AS p INNER JOIN payment_type AS pt ON p.PaymentTypeId = pt.TypeId 
+    WHERE p.PaymentId = _PaymentId;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -439,7 +437,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Payment_Search_Data_G`(
 _SearchText VARCHAR(100),
-_ContractId VARCHAR(5)
+_ContractId INT
 )
 BEGIN
 	SELECT p.PaymentId AS ID, pt.TypeName AS 'Payment Type', p.PaymentDate AS 'Payment Date', 
@@ -618,25 +616,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `Unit_CB_Data` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Unit_CB_Data`()
-BEGIN
-	SELECT UnitId, CONCAT(UnitId, " - ", UnitType) AS 'Items' FROM units WHERE UnitStatus = 'vacant';
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `Unit_CB_Data_N` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -758,7 +737,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Unit_Get_Data_V`(
-_UnitId VARCHAR(10)
+_UnitId INT
 )
 BEGIN
 	SELECT UnitId, UnitType, UnitArea, RentalAmount, TenantLimit, UnitStatus 
@@ -841,4 +820,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-15 20:23:59
+-- Dump completed on 2022-01-16 13:13:33

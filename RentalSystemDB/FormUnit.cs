@@ -89,7 +89,7 @@ namespace RentalSystemDB
 
             MySqlCommand cmd = new MySqlCommand("Unit_Get_Data_V" , con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("_UnitId", m_unitId);
+            cmd.Parameters.AddWithValue("_UnitId", Int32.Parse(m_unitId));
             MySqlDataAdapter msda = new MySqlDataAdapter(cmd);
             msda.Fill(dt);
 

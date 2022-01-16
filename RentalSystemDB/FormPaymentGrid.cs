@@ -111,7 +111,7 @@ namespace RentalSystemDB
 
             MySqlCommand cmd = new MySqlCommand("Payment_Get_Data_G", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("_ContractId", m_contractId);
+            cmd.Parameters.AddWithValue("_ContractId", Int32.Parse(m_contractId));
             MySqlDataAdapter mdsa = new MySqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             mdsa.Fill(dt);
@@ -147,7 +147,7 @@ namespace RentalSystemDB
             MySqlCommand cmd = new MySqlCommand("Payment_Search_Data_G", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("_SearchText", searchText);
-            cmd.Parameters.AddWithValue("_ContractId", m_contractId);
+            cmd.Parameters.AddWithValue("_ContractId", Int32.Parse(m_contractId));
             MySqlDataAdapter mdsa = new MySqlDataAdapter(cmd);
 
             DataTable dt = new DataTable();

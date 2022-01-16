@@ -132,7 +132,7 @@ namespace RentalSystemDB
             // Needs CONCAT(u.UnitId, \" - \", u.UnitType) to be able to select at cb_unit.SelectedIndex
             MySqlCommand cmd = new MySqlCommand("Contract_Get_Data_V", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("_ContractId", m_contractId);
+            cmd.Parameters.AddWithValue("_ContractId", Int32.Parse(m_contractId));
             MySqlDataAdapter msda = new MySqlDataAdapter(cmd);
             dt.Clear();
             msda.Fill(dt);

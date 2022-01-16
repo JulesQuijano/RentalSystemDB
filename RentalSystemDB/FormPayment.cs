@@ -91,7 +91,7 @@ namespace RentalSystemDB
         {
             con.Open();
 
-            #region This query has been replaced with Tenant_Get_Data_V stored procedure
+            #region This query has been replaced with Payment_Get_Data_V stored procedure
             /*
             string q = "SELECT p.PaymentId, pt.TypeName AS Items, p.PaymentDate, p.ReceiptNo, " +
                     "p.PaymentAmount, p.PaymentStatus, p.Comment " +
@@ -100,9 +100,9 @@ namespace RentalSystemDB
             */
             #endregion
 
-            MySqlCommand cmd = new MySqlCommand("Tenant_Get_Data_V", con);
+            MySqlCommand cmd = new MySqlCommand("Payment_Get_Data_V", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("_PaymentId", m_paymentId);
+            cmd.Parameters.AddWithValue("_PaymentId", Int32.Parse(m_paymentId));
             MySqlDataAdapter msda = new MySqlDataAdapter(cmd);
             msda.Fill(dt);
 
@@ -181,7 +181,7 @@ namespace RentalSystemDB
             MySqlCommand cmdSave = new MySqlCommand("Payment_New_Update", con);
             cmdSave.CommandType = CommandType.StoredProcedure;
 
-            cmdSave.Parameters.AddWithValue("_PaymentId", m_paymentId);
+            cmdSave.Parameters.AddWithValue("_PaymentId", Int32.Parse(m_paymentId));
             
             
             cmdSave.Parameters.AddWithValue("_ContractId", m_contractId);

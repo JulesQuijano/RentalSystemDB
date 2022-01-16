@@ -216,7 +216,11 @@ namespace RentalSystemDB
 
             MySqlCommand cmdExpire = new MySqlCommand("Unit_Expire", con);
             cmdExpire.CommandType = CommandType.StoredProcedure;
+            cmdExpire.Parameters.AddWithValue("_UnitId", id);
+
             cmdExpire.ExecuteNonQuery();
+
+            con.Close();
         }
     }
 }
